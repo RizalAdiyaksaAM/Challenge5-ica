@@ -56,6 +56,7 @@ export const LoginPage = () => {
         <p className='text-white'>password</p>
         <input onChange={handleInput} id='Password' className='border w-[20rem] rounded-md mt-1' type='password' ></input>
         <button className='bg-red-600 rounded-lg text-white py-1 mt-4 font-medium ' onClick={() => loginUser() }> Login </button>
+        <button className="bg-white" >Coba</button>
         <a href="/Register"> Register</a>
     </div>
         </div>
