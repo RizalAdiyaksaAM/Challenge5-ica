@@ -10,10 +10,11 @@ import { Autoplay, Pagination } from "swiper/modules";
 
 export const SlideMovie = () => {
   const { data } = useMovieDataQuery({
-    languange: "en-us",
-    page: "pageNow",
+    // languange: "en-us",
+    // page: "pageNow",
   });
-  const LoadData = data ? data.results : [];
+  const LoadData = data ? data.data : [];
+  console.log (LoadData)
 
   return (
     <div className=" ">
@@ -43,7 +44,7 @@ export const SlideMovie = () => {
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    class="w-6 h-6">
+                    classN="w-6 h-6">
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"

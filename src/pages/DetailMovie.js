@@ -1,39 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import http from "../utils/http";
-import { API_ENDPOINT } from "../utils/api-endpoints";
 import { Navbar } from "../assets/components/Navbar";
 import { useQuery } from "@tanstack/react-query";
+import http3 from "../utils/http3";
+import { API_ENDPOINT } from "../utils/api-endpoints";
 
 export const DetailMovie = () => {
-  const { movieId } = useParams();
+  const  movieId  = useParams();
+  const [dataDetail, setDataDetail] = useState("") 
 
-  const getDataDetail = async (id) => {
-    const response = await http.get(
-      `${process.env.REACT_APP_SERVER}${API_ENDPOINT.NOW_DETAIL}/${id}`
+  const getDataDetail = async () => {
+    const response = await http3.get(
+      API_ENDPOINT.BINAR_DETAIL(movieId.movieId)
     );
-    return response;
+    setDataDetail(response.data.data);
   };
+  console.log(dataDetail, "data")
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["detailsData", movieId],
-    queryFn: ({ queryKey }) => getDataDetail(queryKey[1]),
-  });
+  useEffect (()=> {
+    getDataDetail()
+  }, [movieId.movieId])
 
-  const result = !isLoading && data.data;
-  const genres = result && result.genres.map((gen) => gen.name).join(" | ");
-  const rate = result && result.vote_average.toFixed(1);
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["detailsData", movieId],
+  //   queryFn: ({ queryKey }) => getDataDetail(queryKey[1]),
+  // });
+
+  // const result = !isLoading && data.data;
+  const genres = dataDetail && dataDetail.genres.map((gen) => gen.name).join(" | ");
+  const rate = dataDetail && dataDetail.vote_average.toFixed(1);
 
   return (
     <div className="">
       <Navbar />
       <img
         className="w-full h-[50rem] brightness-50 "
-        src={`https://image.tmdb.org/t/p/original/${result.backdrop_path}`}
+        src={`https://image.tmdb.org/t/p/original/${dataDetail.backdrop_path}`}
       />
       <div className="absolute flex flex-col justify-center top-0 w-[50%] h-full gap-[1rem] pl-10 text-white">
-        <h1 className="text-4xl font-bold ">{result.title}</h1>
-        <p className="text-lg ">{result.overview}</p>
+        <h1 className="text-4xl font-bold ">{dataDetail.title}</h1>
+        <p className="text-lg ">{dataDetail.overview}</p>
         <p className="text-lg">{genres}</p>
         <div className="flex content-center items-center gap-2">
           <svg

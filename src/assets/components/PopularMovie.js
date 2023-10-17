@@ -6,13 +6,18 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import { Link } from "react-router-dom";
+import { CookieKeys, CookieStorage } from "../../utils/cookie";
 
 export const PopularMovie = () => {
+  const cekCookie = CookieStorage.get(CookieKeys.AuthToken)
+  // if (cekCookie){
+
+  // }
   const { data } = useMovieDataPopularQuery({
-    languange: "en-us",
-    page: "pageNow",
+    // language: "en-us",
+    // page: "pageNow",
   });
-  const LoadData = data ? data.results : [];
+  const LoadData = data ? data.data : [];
 
   return (
     <div className="h-full">

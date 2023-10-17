@@ -10,7 +10,6 @@ export const LoginPage = () => {
     const [Email, setEmail] = useState("")
     const navigate = useNavigate();
 
-
     const { mutate : logUser, isSuccess, error, data } = useLoginUser()
 
     const handleInput =(e)=> {
@@ -22,15 +21,11 @@ export const LoginPage = () => {
                 setEmail(e.target.value)
             }
         }
-        
     }
 
-    
-
     if (error) {
-        console.log(error.response.data.message, "ini eror bangsat"
+        console.log(error.response.data.message, "ini eror"
         )
-        
     }
 
     const loginUser=()=> {
@@ -43,7 +38,7 @@ export const LoginPage = () => {
     useEffect(() => {
         if (data?.data.data.token) {
           toast.success("Anda berhasil login");
-          navigate("/dashboard");
+          navigate("/home");
         }
       }, [data]);
 
@@ -56,7 +51,7 @@ export const LoginPage = () => {
         <p className='text-white'>password</p>
         <input onChange={handleInput} id='Password' className='border w-[20rem] rounded-md mt-1' type='password' ></input>
         <button className='bg-red-600 rounded-lg text-white py-1 mt-4 font-medium ' onClick={() => loginUser() }> Login </button>
-        <a href="/Register"> Register</a>
+        <a href="/Register" className="text-white"> Register</a>
     </div>
         </div>
     

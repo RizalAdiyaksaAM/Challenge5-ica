@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { fetchDataMovieSearch } from '../service/get-data-movie-search';
 import { Navbar } from '../assets/components/Navbar';
+import { fetchDataMovieSearch } from '../service/get-data-movie-search';
 
 export const SearchMovie = () => {
     const { namemovie } = useParams();
@@ -9,8 +9,8 @@ export const SearchMovie = () => {
 
     const movieSearch = async () => {
         const data = await fetchDataMovieSearch(namemovie);
-        setDataMovie(data.results);
-        console.log(data.results, "data")
+        setDataMovie(data.data);
+        console.log(data.data, "data")
     };
 
     useEffect(()=> {

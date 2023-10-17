@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CookieKeys, CookieStorage } from "../../utils/cookie";
 
 export const Navbar = () => {
 
@@ -11,11 +12,19 @@ export const Navbar = () => {
       navigate(`/${search}`);
     }
   
+    const handleLogout = () => {
+      CookieStorage.remove(CookieKeys.AuthToken, {
+        path:"/",
+        expires:new Date(0)
+      });
+  
+      navigate("/")
+    }
 
   return (
     <div className="relative  items-center  bg-transparent z-10 ">
       <div className="fixed flex justify-around items-center w-full mt-6 bg-transparent z-5">
-        <div className="font-bold text-4xl text-red-600">MovieList</div>
+        <a href="/home" className="font-bold text-4xl text-red-600">MovieList</a>
         <form className="flex gap-2 items-center border-2 rounded-full border-red-600" onSubmit={handleSubmit}>
           <input
             className="w-[25rem] h-[2rem] rounded-[2rem] py-2 pl-9 pr-3 bg-transparent focus:outline-none focus:text-white"
@@ -36,12 +45,15 @@ export const Navbar = () => {
           
         </form>
         <div className="space-x-4">
-          <a href="/Login" className="px-[2.5rem] py-[0.5rem] rounded-[1rem] border-2 border-red-600 text-red-600">
+          <button onClick={handleLogout} className="px-[2.5rem] py-[0.5rem] rounded-[1rem] bg-red-600 text-white">
+              Logout
+          </button>
+          {/* <a href="/" className="px-[2.5rem] py-[0.5rem] rounded-[1rem] border-2 border-red-600 text-red-600">
             Login
           </a>
           <a href="/Register" className="px-[2.5rem] py-[0.5rem] rounded-[1rem] bg-red-600 text-white">
             Register
-          </a>
+          </a> */}
         </div>
       </div>
     </div>

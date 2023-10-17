@@ -7,16 +7,13 @@ import { SearchMovie } from '../pages/SearchMovie'
 import { DetailMovie } from '../pages/DetailMovie'
 import { Register } from '../pages/auth/Register'
 import { LoginPage } from '../pages/auth/LoginPage'
-import { Dashbooard } from '../pages/Dashbooard'
-
-
 
 export const TodoList = () => {
   return (
     <BrowserRouter>
     <Routes>
-    <Route path='/dashboard' element={<Dashbooard/>}/>
     <Route path='/' element={<LoginPage/>}/>
+    <Route path='/home' element={<Home/>}/>
     <Route path='/Register' element={<Register/>}/>
     <Route path='/allmovie' element={<AllMovie/>}/>
     <Route path='/:namemovie' element={<SearchMovie/>}/>

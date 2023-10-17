@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom';
 export const AllMovie = () => {
   
   const { data } = useMovieDataQuery({
-    languange: "en-us",
-    page: "pageNow",
+    // languange: "en-us",
+    // page: "pageNow",
   });
-  const LoadData = data ? data.results : [];
+  const LoadData = data ? data.data : [];
 
 
   return (
