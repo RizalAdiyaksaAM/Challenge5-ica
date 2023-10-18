@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Navbar } from "../assets/components/Navbar";
 import { useQuery } from "@tanstack/react-query";
 import http3 from "../utils/http3";
 import { API_ENDPOINT } from "../utils/api-endpoints";
+import { CookieKeys, CookieStorage } from "../utils/cookie";
 
 export const DetailMovie = () => {
   const  movieId  = useParams();
   const [dataDetail, setDataDetail] = useState("") 
+
+  const navigate = useNavigate()
+  useEffect(() => {
+    const cekCookie = CookieStorage.get(CookieKeys.AuthToken)
+    if (!cekCookie) {
+        navigate('/')
+    } 
+})
 
   const getDataDetail = async () => {
     const response = await http3.get(

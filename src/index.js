@@ -16,7 +16,7 @@ root.render(
       <QueryClientProvider client={queryMovie}>
       <GoogleOAuthProvider clientId={process.env.REACT_APP_OAUTH_GOOGLE_ID}>
       <TodoList/>
-      </GoogleOAuthProvider>;
+      </GoogleOAuthProvider>
       </QueryClientProvider>
       <ToastContainer/>
     </React.StrictMode>

@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Navbar } from '../assets/components/Navbar';
 import { fetchDataMovieSearch } from '../service/get-data-movie-search';
+import { CookieKeys, CookieStorage } from '../utils/cookie';
 
 export const SearchMovie = () => {
     const { namemovie } = useParams();
     const [movie, setDataMovie] = useState([]);
+    const navigate = useNavigate()
+   
+    useEffect(() => {
+      const cekCookie = CookieStorage.get(CookieKeys.AuthToken)
+      if (!cekCookie) {
+          navigate('/')
+      } 
+  })
 
     const movieSearch = async () => {
         const data = await fetchDataMovieSearch(namemovie);

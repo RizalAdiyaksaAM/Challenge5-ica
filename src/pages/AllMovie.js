@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useMovieDataQuery } from '../service/get-data-movie';
 import { Navbar } from '../assets/components/Navbar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { CookieKeys, CookieStorage } from '../utils/cookie';
 
 export const AllMovie = () => {
   
+  const navigate = useNavigate()
+  useEffect(() => {
+    const cekCookie = CookieStorage.get(CookieKeys.AuthToken)
+    if (!cekCookie) {
+        navigate('/')
+    } 
+})
+
   const { data } = useMovieDataQuery({
     // languange: "en-us",
     // page: "pageNow",
