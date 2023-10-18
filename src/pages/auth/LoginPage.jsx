@@ -3,6 +3,7 @@ import { useLoginUser } from "../../utils/auth/LoginUser"
 import { useEffect } from "react"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
+import { GoogleLogin } from "@react-oauth/google"
 
 
 export const LoginPage = () => {
@@ -50,6 +51,14 @@ export const LoginPage = () => {
         <input onChange={handleInput} id='Email' className='border w-[20rem] rounded-md mt-1' type='email' ></input>
         <p className='text-white'>password</p>
         <input onChange={handleInput} id='Password' className='border w-[20rem] rounded-md mt-1' type='password' ></input>
+        <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              console.log(credentialResponse);
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          />
         <button className='bg-red-600 rounded-lg text-white py-1 mt-4 font-medium ' onClick={() => loginUser() }> Login </button>
         <a href="/Register" className="text-white"> Register</a>
     </div>
