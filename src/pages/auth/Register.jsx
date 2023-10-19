@@ -25,11 +25,11 @@ export const Register = () => {
         
     }
 
-    console.log(Username, "Username")
-    console.log(Password, "Password")
-    console.log(Email, "Email")
-    console.log(isSuccess, "isSucces")
-    console.log(error, "Error")
+    // console.log(Username, "Username")
+    // console.log(Password, "Password")
+    // console.log(Email, "Email")
+    // console.log(isSuccess, "isSucces")
+    // console.log(error, "Error")
 
     if (error) {
         console.log(error.response.data.message, "ini eror bangsat"

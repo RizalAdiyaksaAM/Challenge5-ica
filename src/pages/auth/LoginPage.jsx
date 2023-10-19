@@ -3,7 +3,7 @@ import { useLoginUser } from "../../utils/auth/LoginUser";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
+import GoogleLogin from "../../assets/components/GoogleLogin";
 
 export const LoginPage = () => {
   const [Password, setPassword] = useState("");
@@ -20,6 +20,7 @@ export const LoginPage = () => {
       if (e.target.id === "Email") {
         setEmail(e.target.value);
       }
+      console.log(e.target.value);
     }
   };
 
@@ -31,12 +32,14 @@ export const LoginPage = () => {
     logUser({
       email: Email,
       password: Password,
-    });
+    })
   };
 
   useEffect(() => {
     if (data?.data.data.token) {
-      toast.success("Anda berhasil login");
+      toast.success("Anda berhasil login", {
+        theme: "dark"
+      })
       navigate("/home");
     }
   }, [data]);
@@ -52,24 +55,30 @@ export const LoginPage = () => {
             onChange={handleInput}
             id="Email"
             className="border w-[20rem] rounded-md mt-1"
-            type="email"></input>
+            type="email"
+          ></input>
           <p className="text-white">password</p>
           <input
             onChange={handleInput}
             id="Password"
             className="border w-[20rem] rounded-md mt-1"
-            type="password"></input>
-          <GoogleLogin
+            type="password"
+          ></input>
+          <div className="text-white">
+            <GoogleLogin buttonText="Login With Google 🚀" />
+          </div>
+          {/* <GoogleLogin
             onSuccess={(credentialResponse) => {
               console.log(credentialResponse);
             }}
             onError={() => {
               console.log("Login Failed");
             }}
-          />
+          /> */}
           <button
             className="bg-red-600 rounded-lg text-white py-1 mt-4 font-medium "
-            onClick={() => loginUser()}>
+            onClick={() => loginUser()}
+          >
             {" "}
             Login{" "}
           </button>
