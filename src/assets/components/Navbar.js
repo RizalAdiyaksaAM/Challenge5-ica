@@ -27,7 +27,7 @@ export const Navbar = () => {
         <a href="/home" className="font-bold text-4xl text-red-600">MovieList</a>
         <form className="flex gap-2 items-center border-2 rounded-full border-red-600" onSubmit={handleSubmit}>
           <input
-            className="w-[25rem] h-[2rem] rounded-[2rem] py-2 pl-9 pr-3 bg-transparent focus:outline-none focus:text-white"
+            className="w-[25rem] h-[2rem] rounded-[2rem] py-2 pl-9 pr-3 bg-transparent border-none focus:outline-none focus:text-white"
             placeholder="What do you want to match?"
             onChange={(e) => setSearch(e.target.value)}
             type="text"
@@ -45,7 +45,7 @@ export const Navbar = () => {
           
         </form>
         <div className="space-x-4">
-          <button onClick={handleLogout} className="px-[2.5rem] py-[0.5rem] rounded-[1rem] bg-red-600 text-white">
+          <button onClick={handleLogout} className="px-[2.5rem] py-[0.5rem] rounded-xl bg-red-600 text-white font-semibold">
               Logout
           </button>
           {/* <a href="/" className="px-[2.5rem] py-[0.5rem] rounded-[1rem] border-2 border-red-600 text-red-600">
