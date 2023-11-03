@@ -10,10 +10,7 @@ const fetchDataMoviePopular = async ({ queryKey }) => {
 };
 
 const useMovieDataPopularQuery = (options) => {
-  
   return useQuery([API_ENDPOINT.BINAR_POPULAR, options], fetchDataMovie);
 };
-// const useMovieDataPopularQuery = (options) => {
-//   return useQuery([API_ENDPOINT.NOW_PLAYING, options], fetchDataMovie);
-// };
+
 export { fetchDataMoviePopular, useMovieDataPopularQuery };

@@ -26,11 +26,7 @@ function GoogleLogin({ buttonText }) {
       const response = await axios.request(config);
       const { token } = response.data.data;
 
-      //   localStorage.setItem("token", token);
       CookieStorage.set(CookieKeys.AuthToken, token);
-      // navigate("/");
-
-      // Temporary solution
 
       toast.success(
         "Berhasil login dengan Google!",

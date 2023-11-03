@@ -4,17 +4,17 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import GoogleLogin from "../../assets/components/googleLogin";
+import { useDispatch } from "react-redux";
+import { LoginUser } from "../../redux/actions/authlogin";
 
-
-
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 export const LoginPage = () => {
   const [Password, setPassword] = useState("");
   const [Email, setEmail] = useState("");
   const navigate = useNavigate();
 
-  const { mutate: logUser, isSuccess, error, data } = useLoginUser();
+  // const { mutate: logUser, isSuccess, error, data } = useLoginUser();
+  const dispatch = useDispatch();
 
   const handleInput = (e) => {
     if (e) {
@@ -24,29 +24,29 @@ export const LoginPage = () => {
       if (e.target.id === "Email") {
         setEmail(e.target.value);
       }
-      console.log(e.target.value);
     }
   };
 
-  if (error) {
-    console.log(error.response.data.message, "ini eror");
-  }
-
-  const loginUser = () => {
-    logUser({
-      email: Email,
-      password: Password,
-    });
+  const loginUser = async () => {
+    const success = await dispatch(
+      LoginUser({
+          email: Email,
+          password: Password,
+        })
+    )
+    if (success){
+      navigate("/home")
+    }
   };
 
-  useEffect(() => {
-    if (data?.data.data.token) {
-      toast.success("Anda berhasil login", {
-        theme: "dark",
-      });
-      navigate("/home");
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data?.data.data.token) {
+  //     toast.success("Anda berhasil login", {
+  //       theme: "dark",
+  //     });
+  //     navigate("/home");
+  //   }
+  // }, [data]);
 
   return (
     <div className="w-screen h-screen relative bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-black via-black to-red-700">
@@ -107,7 +107,7 @@ export const LoginPage = () => {
 
           <button
             className="bg-red-600 rounded-lg text-white py-1 mt-4 font-medium "
-            onClick={() => loginUser()}>
+            onClick={() => {loginUser()}}>
             Sign in
           </button>
           
@@ -116,6 +116,5 @@ export const LoginPage = () => {
       </div>
     </div>
     </div>
-    
   );
 };

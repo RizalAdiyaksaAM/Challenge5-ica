@@ -1,23 +1,20 @@
-import React from "react";
-import { useMovieDataPopularQuery } from "../../service/get-data-movie-popular";
-// Import Swiper React components
+import React, { useEffect} from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import { Link } from "react-router-dom";
-import { CookieKeys, CookieStorage } from "../../utils/cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { actionsMovie } from "../../redux/actions/actionMovie";
 
 export const PopularMovie = () => {
-  const cekCookie = CookieStorage.get(CookieKeys.AuthToken)
-  // if (cekCookie){
-
-  // }
-  const { data } = useMovieDataPopularQuery({
-    // language: "en-us",
-    // page: "pageNow",
-  });
-  const LoadData = data ? data.data : [];
+  const dispatch = useDispatch();
+  const movies = useSelector((state) => state.movie);
+  
+  const popular = ()=>{
+    dispatch (actionsMovie()) 
+  }
+  useEffect (() => {
+    popular ();
+  },[])
 
   return (
     <div className="h-full">
@@ -39,12 +36,8 @@ export const PopularMovie = () => {
       <Swiper className="w-[100%]"
         spaceBetween={50}
         slidesPerView={3}
-        // onSlideChange={() => console.log('slide change')}
-        // onSwiper={(swiper) => console.log(swiper)}
-        >
-
-       
-        {LoadData.map((movie) => (
+        > 
+        {movies.movies.data?.map((movie) => (
           <SwiperSlide  key={movie.id} >
             <Link to={`/detail/${movie.id}`}>
               <img className=" transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 "
@@ -56,5 +49,5 @@ export const PopularMovie = () => {
         ))}
       </Swiper>
     </div>
-  );
+      )
 };

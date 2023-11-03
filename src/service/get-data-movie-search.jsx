@@ -5,7 +5,7 @@ import http3 from "../utils/http3";
 const fetchDataMovieSearch = async (namemovie) => {
   const { data } = await http3.get(API_ENDPOINT.BINAR_SEARCH, {
     params: {
-      include_adult: true,
+      include_adult: false,
       // language: "en-US",
       page: 1,
       query: namemovie,
@@ -18,3 +18,8 @@ const useMovieDataSearchQuery = (namemovie) => {
   return useQuery(["userDataMovieSearch", namemovie], () => fetchDataMovieSearch(namemovie));
 };
 export { fetchDataMovieSearch, useMovieDataSearchQuery };
+
+
+// export const reduxSearchMovie = async () => {
+//   return await http3.get(API_ENDPOINT.BINAR_SEARCH)
+// }

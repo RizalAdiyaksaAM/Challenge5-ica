@@ -1,20 +1,21 @@
-import React, { useState } from "react";
-import { useMovieDataQuery } from "../../service/get-data-movie";
-// Import Swiper React components
+import React, { useEffect} from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/pagination";
-
 import { Autoplay, Pagination } from "swiper/modules";
+import { useDispatch, useSelector } from "react-redux";
+import { actionsMovie } from "../../redux/actions/actionMovie";
 
 export const SlideMovie = () => {
-  const { data } = useMovieDataQuery({
-    // languange: "en-us",
-    // page: "pageNow",
-  });
-  const LoadData = data ? data.data : [];
-  // console.log (LoadData)
+  const dispatch = useDispatch();
+  const movies = useSelector((state) => state.movie);
+  
+  const popular = ()=>{
+    dispatch (actionsMovie()) 
+  }
+  useEffect (() => {
+    popular ();
+  },[])
 
   return (
     <div className=" ">
@@ -28,7 +29,7 @@ export const SlideMovie = () => {
         }}
         modules={[Autoplay, Pagination]}
         className="mySwiper ">
-        {LoadData.map((movie) => (
+        {movies.movies.data?.map((movie) => (
           <SwiperSlide key={movie.id}>
             <div className="w-full h-[50rem] relative">
               <img

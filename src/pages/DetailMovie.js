@@ -1,54 +1,36 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Navbar } from "../assets/components/Navbar";
-import { useQuery } from "@tanstack/react-query";
-import http3 from "../utils/http3";
-import { API_ENDPOINT } from "../utils/api-endpoints";
-import { CookieKeys, CookieStorage } from "../utils/cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { actionDetail } from "../redux/actions/actionDetail";
 
 export const DetailMovie = () => {
-  const  movieId  = useParams();
-  const [dataDetail, setDataDetail] = useState("") 
+  //setiingredux
+  const  params  = useParams();
+  const dispatch = useDispatch();
+  const detailsMovie = useSelector((state) => state.movieDetail.movieDetail);
 
-  const navigate = useNavigate()
-  useEffect(() => {
-    const cekCookie = CookieStorage.get(CookieKeys.AuthToken)
-    if (!cekCookie) {
-        navigate('/')
-    } 
-})
+  const getDetailMovie = () => {
+    dispatch(actionDetail(params.movieId))
+  }
 
-  const getDataDetail = async () => {
-    const response = await http3.get(
-      API_ENDPOINT.BINAR_DETAIL(movieId.movieId)
-    );
-    setDataDetail(response.data.data);
-  };
-  console.log(dataDetail, "data")
+  useEffect(()=> {
+    getDetailMovie()
+  }, [params.movieId, dispatch])
 
-  useEffect (()=> {
-    getDataDetail()
-  }, [movieId.movieId])
-
-  // const { data, isLoading } = useQuery({
-  //   queryKey: ["detailsData", movieId],
-  //   queryFn: ({ queryKey }) => getDataDetail(queryKey[1]),
-  // });
-
-  // const result = !isLoading && data.data;
-  const genres = dataDetail && dataDetail.genres.map((gen) => gen.name).join(" | ");
-  const rate = dataDetail && dataDetail.vote_average.toFixed(1);
+  const genres = detailsMovie && detailsMovie.genres.map((gen) => gen.name).join(" | ");
+  const rate = detailsMovie && detailsMovie.vote_average.toFixed(1);
 
   return (
     <div className="">
       <Navbar />
       <img
         className="w-full h-[50rem] brightness-50 "
-        src={`https://image.tmdb.org/t/p/original/${dataDetail.backdrop_path}`}
+        src={`https://image.tmdb.org/t/p/original/${detailsMovie.backdrop_path}`}
       />
       <div className="absolute flex flex-col justify-center top-0 w-[50%] h-full gap-[1rem] pl-10 text-white">
-        <h1 className="text-4xl font-bold ">{dataDetail.title}</h1>
-        <p className="text-lg ">{dataDetail.overview}</p>
+        <h1 className="text-4xl font-bold ">{detailsMovie.title}</h1>
+        <p className="text-lg ">{detailsMovie.overview}</p>
         <p className="text-lg">{genres}</p>
         <div className="flex content-center items-center gap-2">
           <svg
@@ -66,12 +48,12 @@ export const DetailMovie = () => {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
-            class="w-6 h-6">
+            className="w-6 h-6">
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
